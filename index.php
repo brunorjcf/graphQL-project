@@ -23,8 +23,39 @@
         ],
     ]);
 
+    $mutationType = new ObjectType([
+
+        'name' => 'Calc',
+
+        'fields' => [
+
+            'sum' => [
+
+                'type' => Type::int(),
+
+                'args' => [
+
+                    'x' => ['type' => Type::int()],
+
+                    'y' => ['type' => Type::int()],
+
+                ],
+
+                'resolve' => function ($calc, $args) {
+
+                    return $args['x'] + $args['y'];
+
+                },
+
+            ],
+
+        ],
+
+    ]);
+
     $schema = new Schema([
         'query' => $queryType,
+        'mutation' => $mutationType
     ]);
 
     $rawInput = file_get_contents('php://input');
